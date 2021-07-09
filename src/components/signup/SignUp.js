@@ -1,35 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './SignUp.css';
+import Otp from '../otp/Otp';
 
-const SignUp = () => {
+const SignUp = (props) => {
+
+    const [ email, setEmail ]= useState('');
+    const [ passwordOne, setPasswordOne ] = useState('');
+    const [ passwordTwo, setPasswordTwo ] = useState('');
+
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        console.log("CLicked Sumbit")
+        props.onSubmit?.();
+    }
+
     return (
-        <form className="signup-form">
-            <h3>Sign Up</h3>
+        <form className="signup-form" onSubmit={submitHandler}>
+            <h3>Sign Up ~ Flow</h3>
 
             <div>
-                <label>Email  </label>
-                <input type="email" placeholder="Enter email" required />
+                <label>Email </label>
+                <input 
+                    name="email"
+                    type="email" 
+                    placeholder="Enter email" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                />
             </div>
 
             <div>
                 <label>Password </label>
-                <input type="password" placeholder="Enter password" required />
+                <input 
+                    id="pass1" 
+                    type="password" 
+                    placeholder="Enter password" 
+                    value={passwordOne}
+                    onChange={e => setPasswordOne(e.target.value)}
+                    required 
+                />
             </div>
 
-            <div>
-                {/* Check Password */}
-            </div>
+            <span id="password_strength"></span>
 
             <div>
                 <label>Password </label>
-                <input type="password" placeholder="Enter password again" required />
+                <input 
+                    id="pass2" 
+                    type="password" 
+                    placeholder="Enter password again" 
+                    value={passwordTwo}
+                    onChange={e => setPasswordTwo(e.target.value)}
+                    required 
+                />
             </div>
 
-            <div>
-                {/* Check Password Match */}
-            </div>
+            <span id="match_password"></span>
 
-            <button type="submit" name="submit">Sign Up</button>
+            <button 
+                disabled={!email && !passwordOne && !passwordTwo}
+                type="submit"
+            >
+                Sign Up
+            </button>
         </form>
     )
 }
