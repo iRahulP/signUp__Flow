@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './SignUp.css';
-import Otp from '../otp/Otp';
 
 const SignUp = (props) => {
 
@@ -8,11 +7,10 @@ const SignUp = (props) => {
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
 
-
     const submitHandler = (e) => {
+
         e.preventDefault();
-        console.log("CLicked Sumbit")
-        props.onSubmit?.();
+        console.log("CLicked Sumbit");
     }
 
     return (
@@ -60,7 +58,7 @@ const SignUp = (props) => {
             <span id="match_password"></span>
 
             <button 
-                disabled={!email && !passwordOne && !passwordTwo}
+                disabled={!email || !passwordOne || !passwordTwo}
                 type="submit"
             >
                 Sign Up
