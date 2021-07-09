@@ -13,9 +13,21 @@ describe("Initial signup component with tests", () => {
 test("check button disabled", () => {
     const root = document.createElement('div');
     render(<SignUp />, root);
-
     const button = root.querySelector("button");
-    expect(button.disabled).toBe(true);
+    expect(button).toBeDisabled();
 });
+
+test("check button not disabled", () => {
+    const root = document.createElement('div');
+    render(<SignUp />, root);
+    root.querySelector("#email").innerHTML = "test@test.com";
+    console.log(root.querySelector("#email").innerHTML);
+    root.querySelector("#pass1").innerHTML = "somePassword";
+    root.querySelector("#pass2").innerHTML = "somePassword";
+    console.log(root.innerHTML);
+    const button = root.querySelector("button");
+    expect(button).toBeDisabled();
+});
+
 
 // test("check")

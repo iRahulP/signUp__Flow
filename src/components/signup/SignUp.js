@@ -20,6 +20,7 @@ const SignUp = (props) => {
             <div>
                 <label>Email </label>
                 <input 
+                    id="email"
                     name="email"
                     type="email" 
                     placeholder="Enter email" 
