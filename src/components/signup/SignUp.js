@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './SignUp.css';
 
 const SignUp = (props) => {
@@ -7,22 +7,30 @@ const SignUp = (props) => {
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
 
-    const submitHandler = (e) => {
+    const matchPass = (pass1, pass2) => {
+            return (pass1 === pass2);
+        }
 
+    useEffect(() => {
+        //change css if email invalid
+    }, [email])
+
+    const continueToNext = (e) => {
         e.preventDefault();
-        console.log("CLicked Sumbit");
+        props.nextStep();
     }
 
     return (
-        <form className="signup-form" onSubmit={submitHandler}>
+        <React.Fragment>
+        <form className="signup-form" onSubmit={continueToNext}>
             <h3>Sign Up ~ Flow</h3>
 
             <div>
                 <label>Email </label>
                 <input 
                     id="email"
-                    name="email"
-                    type="email" 
+                    type="email"
+                    data-testid="email"
                     placeholder="Enter email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -35,6 +43,7 @@ const SignUp = (props) => {
                 <input 
                     id="pass1" 
                     type="password" 
+                    data-testid='password1'
                     placeholder="Enter password" 
                     value={passwordOne}
                     onChange={e => setPasswordOne(e.target.value)}
@@ -49,22 +58,30 @@ const SignUp = (props) => {
                 <input 
                     id="pass2" 
                     type="password" 
+                    data-testid="password2"
                     placeholder="Enter password again" 
                     value={passwordTwo}
                     onChange={e => setPasswordTwo(e.target.value)}
                     required 
                 />
             </div>
-
-            <span id="match_password"></span>
+            
+            <span
+                data-testid="match-password"
+                id="match_password"
+            >
+                {matchPass(passwordOne,passwordTwo) ? `Passwords Match!` : `Passwords don't Match` }
+            </span>
 
             <button 
+                data-testid="submit-btn"
                 disabled={!email || !passwordOne || !passwordTwo}
                 type="submit"
             >
                 Sign Up
             </button>
         </form>
+        </React.Fragment>
     )
 }
 
