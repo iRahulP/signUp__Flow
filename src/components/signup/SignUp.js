@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './SignUp.css';
+import PasswordStrength from './validation/PasswordStrength';
+import PasswordMatch from './validation/PasswordMatch';
 
-const SignUp = (props) => {
+function SignUp(props) {
 
     const [ email, setEmail ]= useState('');
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
-
-    const matchPass = (pass1, pass2) => {
-            return (pass1 === pass2);
-        }
 
     useEffect(() => {
         //change css if email invalid
@@ -21,12 +19,11 @@ const SignUp = (props) => {
     }
 
     return (
-        <React.Fragment>
         <form className="signup-form" onSubmit={continueToNext}>
             <h3>Sign Up ~ Flow</h3>
 
             <div>
-                <label>Email </label>
+                <label htmlFor="email">Email</label>
                 <input 
                     id="email"
                     type="email"
@@ -39,11 +36,11 @@ const SignUp = (props) => {
             </div>
 
             <div>
-                <label>Password </label>
+                <label htmlFor="password">Password </label>
                 <input 
                     id="pass1" 
                     type="password" 
-                    data-testid='password1'
+                    data-testid='pass1'
                     placeholder="Enter password" 
                     value={passwordOne}
                     onChange={e => setPasswordOne(e.target.value)}
@@ -51,14 +48,19 @@ const SignUp = (props) => {
                 />
             </div>
 
-            <span id="password_strength"></span>
+            <span
+                data-testid="password-strength" 
+                id="password_strength"
+            >
+                {PasswordStrength(passwordOne)}
+            </span>
 
             <div>
-                <label>Password </label>
+                <label htmlFor="password">Password </label>
                 <input 
                     id="pass2" 
                     type="password" 
-                    data-testid="password2"
+                    data-testid="pass2"
                     placeholder="Enter password again" 
                     value={passwordTwo}
                     onChange={e => setPasswordTwo(e.target.value)}
@@ -70,7 +72,7 @@ const SignUp = (props) => {
                 data-testid="match-password"
                 id="match_password"
             >
-                {matchPass(passwordOne,passwordTwo) ? `Passwords Match!` : `Passwords don't Match` }
+                {PasswordMatch(passwordOne,passwordTwo)}
             </span>
 
             <button 
@@ -81,7 +83,6 @@ const SignUp = (props) => {
                 Sign Up
             </button>
         </form>
-        </React.Fragment>
     )
 }
 

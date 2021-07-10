@@ -1,5 +1,4 @@
-import { getByTestId } from "@testing-library/react";
-import { render, cleanup, fireEvent, screen } from "react-dom";
+import {render, cleanup, fireEvent, screen, getByTestId } from "@testing-library/react";
 import { isElement } from "react-dom/test-utils";
 import SignUp from './SignUp';
 
@@ -13,34 +12,36 @@ describe("Initial signup component with tests", () => {
     test.todo("Add a blink icon next to passowrd fields for UX")
 });
 
-let container;
-
 beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    render(<SignUp />, container);
+    render(<SignUp />);
   });
-  
-  afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-  });
+
+afterEach(() => {
+    cleanup();
+})
+
+test("should render an input element", () => {
+  const input = screen.getByTestId("email");
+  expect(input).toBeInTheDocument();  
+})
 
 test("check button disabled", () => {
-    const button = document.querySelector("button");
-    expect(button).toBeDisabled();
+    // const button = document.querySelector("button");
+    const btn = screen.getByTestId("submit-btn");
+    expect(btn).toBeDisabled();
 });
 
 test("check button not disabled", () => {
-    
-    const email = document.querySelector("#email");
+    const email = screen.getByTestId("email");
+    const pass1 = screen.getByTestId("pass1");
+    const pass2 = screen.getByTestId("pass2");
+
     fireEvent.change(email, { target: { value: 'abc@abc.xyz' } });
-    // console.log(document.querySelector("#email").innerHTML);
-    document.querySelector("#pass1").innerHTML = "somePassword";
-    document.querySelector("#pass2").innerHTML = "somePassword";
-    const button = document.querySelector("button");
+    fireEvent.change(pass1, { target: { value: 'HzdkXy' } });
+    fireEvent.change(pass2, { target: { value: 'HzdkXy' } });
     
-    expect(button).toBeDisabled();
+    const button = document.querySelector("button");
+    expect(button).toBeEnabled();
 });
 
 test("check all required components", () => {
@@ -62,6 +63,6 @@ test("check input fields which require values" , () => {
     expect(document.querySelector('#pass2')).toBeRequired();
 })
 
-test("check if passwords match", () => {
-    console.log(document.innerHTML);
-})
+// test("check if passwords match", () => {
+//     console.log(document.innerHTML);
+// })

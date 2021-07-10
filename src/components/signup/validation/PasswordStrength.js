@@ -1,6 +1,6 @@
 const PasswordStrength = (pass) => {
     if (pass.length === 0){
-        return 'invalid';
+        return '';
     }
     else if(pass.length > 0 && pass.length < 4) {
         return 'weak';

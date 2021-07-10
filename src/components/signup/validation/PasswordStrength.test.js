@@ -13,5 +13,5 @@ test("check if password is strong", () => {
 });
 
 test("check if password is invalid", () => {
-    expect(PasswordStrength('')).toBe('invalid');
+    expect(PasswordStrength('')).toBe('');
 });
