@@ -64,5 +64,11 @@ test("check input fields which require values" , () => {
 })
 
 test("check if passwords match", () => {
-    console.log(document.innerHTML);
+    const pass1 = screen.getByTestId("pass1");
+    const pass2 = screen.getByTestId("pass2");
+
+    fireEvent.change(pass1, { target: { value: 'HzdkXy' } });
+    fireEvent.change(pass2, { target: { value: 'HzdkXy' } });
+    
+    screen.getByText('passwords match');
 })

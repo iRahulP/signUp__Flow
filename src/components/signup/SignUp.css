@@ -45,11 +45,27 @@
 }
 
 .weak {
-    color: red
+    color: red;
+    text-align: right;
+
 }
 .medium {
-    color: yellow
+    color: yellow;
+    text-align: right;
 }
 .strong {
-    color: green
+    color: green;
+    text-align: right;
+}
+
+.passwords {
+    text-align: right;
+}
+
+.match {
+    color: green;
+}
+
+.do {
+    color: red;
 }
