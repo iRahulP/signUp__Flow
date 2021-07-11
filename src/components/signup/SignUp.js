@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './SignUp.css';
 import PasswordStrength from './validation/PasswordStrength';
 import PasswordMatch from './validation/PasswordMatch';
@@ -13,7 +13,7 @@ function SignUp(props) {
         e.preventDefault();
         props.nextStep();
     }
-    
+
     return (
         <form className="signup-form" onSubmit={continueToNext}>
             <h3>Sign Up ~ Flow</h3>
@@ -68,6 +68,7 @@ function SignUp(props) {
             <span
                 data-testid="match-password"
                 id="match_password"
+                className={`${PasswordMatch(passwordOne,passwordTwo)}`}
             >
                 {PasswordMatch(passwordOne,passwordTwo)}
             </span>

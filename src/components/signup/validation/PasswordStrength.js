@@ -3,13 +3,13 @@ const PasswordStrength = (pass) => {
         return '';
     }
     else if(pass.length > 0 && pass.length < 4) {
-        return 'weak';
+        return '__ weak';
     }
     else if(pass.length >= 4 && pass.length < 8)  {
-        return 'medium';
+        return '__ __ medium';
     }
     else {
-        return 'strong';
+        return '__ __ __ strong';
     }
 }
 
