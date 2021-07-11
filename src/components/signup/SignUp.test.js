@@ -63,6 +63,6 @@ test("check input fields which require values" , () => {
     expect(document.querySelector('#pass2')).toBeRequired();
 })
 
-// test("check if passwords match", () => {
-//     console.log(document.innerHTML);
-// })
+test("check if passwords match", () => {
+    console.log(document.innerHTML);
+})

@@ -9,15 +9,11 @@ function SignUp(props) {
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
 
-    useEffect(() => {
-        //change css if email invalid
-    }, [email])
-
     const continueToNext = (e) => {
         e.preventDefault();
         props.nextStep();
     }
-
+    
     return (
         <form className="signup-form" onSubmit={continueToNext}>
             <h3>Sign Up ~ Flow</h3>
@@ -51,6 +47,7 @@ function SignUp(props) {
             <span
                 data-testid="password-strength" 
                 id="password_strength"
+                className={`${PasswordStrength(passwordOne)}`}
             >
                 {PasswordStrength(passwordOne)}
             </span>
