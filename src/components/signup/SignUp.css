@@ -43,3 +43,13 @@
     margin: 15px 15px;
     justify-self: center !important;
 }
+
+.weak {
+    color: red
+}
+.medium {
+    color: yellow
+}
+.strong {
+    color: green
+}
