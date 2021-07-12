@@ -20,6 +20,10 @@ afterEach(() => {
     cleanup();
 })
 
+test.skip("debug mode", () => {
+    screen.debug();
+})
+
 test("should render an input element", () => {
   const input = screen.getByTestId("email");
   expect(input).toBeInTheDocument();  
