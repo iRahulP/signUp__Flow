@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './Otp.css';
+import mockOtp from './mock/otp.json';
 
 const Otp = (props) => {
     const [ one, setOne ]= useState('');
@@ -10,12 +11,22 @@ const Otp = (props) => {
 
     const continueToNext = (e) => {
         e.preventDefault();
-        props.nextStep();
+        if(one.concat(two,three,four,five) === mockOtp.otp){
+            props.nextStep();   
+        }
+        else{
+            setOne('');
+            setTwo('');
+            setThree('');
+            setFour('');
+            setFive('');
+            document.querySelector("span").innerText = 'Invalid OTP';
+        }
     }
 
     return (
         <div  className="flow2">
-            <h3>Sign Up ~ Flow</h3>
+            <h3>Enter ~ OTP</h3>
         <form 
             className="digit-group" 
             data-group-name="digits"
@@ -76,11 +87,19 @@ const Otp = (props) => {
                 onChange={e => setFive(e.target.value)}
             /> 
         </form>
+
+            <span
+                data-testid="otp-check" 
+                id="otp-check"
+            >
+            </span>
+
             <button
                 disabled={!one || !two || !three || !four || !five }
                 type="submit"
                 data-testid="submit-btn"
                 onClick={continueToNext}
+                className="btn"
             >
                 Confirm OTP
             </button>
