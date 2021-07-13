@@ -1,18 +1,32 @@
 import React, { useState } from 'react'
 import './Referral.css';
+import refCheck from './mock/ref.json';
 
-const Referral = () => {
+const Referral = (props) => {
 
     const [ referral, setReferral ] = useState('');
     const [ isChecked, setIsChecked ] = useState(false);
 
     const handleInputChange = (e) => {
         setIsChecked(e.target.checked);
+    }   
+
+    const continueToNext = (e) => {
+        e.preventDefault();
+        if(referral === refCheck.ref){
+            props.handleFinal(refCheck.refBy);
+            props.nextStep();
+        }
+        else{
+            setReferral('');
+            document.querySelector("span").innerText = 'Invalid referral code, Try again!';
+        }
     }
 
     return (
         <form
-            className="signup-form" 
+            className="signup-form"
+            onSubmit={continueToNext} 
         >
             <h3>
                 Enter ~ Referral Code   
@@ -24,6 +38,13 @@ const Referral = () => {
                 value={referral}
                 onChange={e => setReferral(e.target.value)}
             />
+
+            <span
+                data-testid="ref-check" 
+                id="ref-check"
+            >
+            </span>
+
             <div>
                 <input 
                     name="referral-check"
