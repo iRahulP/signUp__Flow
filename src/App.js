@@ -8,6 +8,7 @@ import Congrats from './components/congrats/Congrats';
 function App() {  
 
   const [ step, setStep ] = useState(1);
+  const [ refUser, setRefUser ] = useState('');
 
   const nextStep = () => {
     setStep(step + 1);
@@ -15,6 +16,15 @@ function App() {
 
   const handleChange = (input) => (e) => {
     setStep(e.target.value);
+  }
+
+  const handleFinal = (name) => {
+    if(name === ''){
+     setRefUser(refUser); 
+    }
+    else{
+      setRefUser(name);
+    }
   }
 
   switch(step) {
@@ -37,6 +47,7 @@ function App() {
         <Referral
           nextStep={nextStep}
           handleChange={handleChange}
+          handleFinal={handleFinal}
         />
       );
     default:
@@ -44,6 +55,7 @@ function App() {
         <Congrats 
           nextStep={nextStep}
           handleChange={handleChange}
+          handleFinal={handleFinal}
         />
       );  
   }
