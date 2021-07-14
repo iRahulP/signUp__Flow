@@ -13,13 +13,16 @@ const Referral = (props) => {
 
     const continueToNext = (e) => {
         e.preventDefault();
-        if(referral === refCheck.ref){
+        if(referral === refCheck.ref && isChecked === false){
             props.handleFinal(refCheck.refBy);
             props.nextStep();
         }
-        else{
+        else if(referral !== refCheck.refBy && isChecked === false) {
             setReferral('');
             document.querySelector("span").innerText = 'Invalid referral code, Try again!';
+        }
+        else {
+            props.nextStep();    
         }
     }
 

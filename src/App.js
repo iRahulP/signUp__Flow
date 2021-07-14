@@ -55,7 +55,7 @@ function App() {
         <Congrats 
           nextStep={nextStep}
           handleChange={handleChange}
-          handleFinal={handleFinal}
+          refUser={refUser}
         />
       );  
   }

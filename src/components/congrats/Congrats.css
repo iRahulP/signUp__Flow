@@ -1,0 +1,9 @@
+.congrats {
+    display: grid;
+    width:max-content;
+    margin: 60px auto 60px;
+    padding: 10px;
+    position: relative;
+    justify-content: center;
+    text-shadow: 0 2px 1px rgba(0,0,0,0.3);
+    }
