@@ -1,29 +1,38 @@
 import React, { useState } from 'react'
 import './Referral.css';
 import refCheck from './mock/ref.json';
+import { Button,Spinner } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Referral = (props) => {
 
     const [ referral, setReferral ] = useState('');
     const [ isChecked, setIsChecked ] = useState(false);
+    const [ loading, setLoading ] = useState(false);
 
     const handleInputChange = (e) => {
+        console.log(isChecked);
         setIsChecked(e.target.checked);
     }   
 
     const continueToNext = (e) => {
         e.preventDefault();
-        if(referral === refCheck.ref && isChecked === false){
-            props.handleFinal(refCheck.refBy);
-            props.nextStep();
-        }
-        else if(referral !== refCheck.refBy && isChecked === false) {
-            setReferral('');
-            document.querySelector("span").innerText = 'Invalid referral code, Try again!';
-        }
-        else {
-            props.nextStep();    
-        }
+        setLoading(true)
+        setTimeout(() => {
+            if(referral === refCheck.ref && isChecked === false){
+                props.handleFinal(refCheck.refBy);
+                props.nextStep();
+            }
+            else if(referral !== refCheck.refBy && isChecked === false) {
+                setReferral('');
+                document.querySelector("span").innerText = 'Invalid referral code, Try again!';
+            }
+            else {
+                props.nextStep();    
+            }    
+            setLoading(false)
+        }, 1000)
+        
     }
 
     return (
@@ -48,7 +57,7 @@ const Referral = (props) => {
             >
             </span>
 
-            <div>
+            <div className="check-box">
                 <input 
                     name="referral-check"
                     id="referral-check"
@@ -59,18 +68,34 @@ const Referral = (props) => {
                 />
                 <label 
                     htmlFor="referral-check"
+                    style={{marginLeft: '5px'}}
                 >
                     I don't have a referral code
                 </label>
             </div>
-            <button
+            
+            <Button
+                variant="primary"
                 className="btn"
                 id="btn"
                 data-testid="btn"
                 disabled={!isChecked && !referral}
+                type="submit"
             >
-                Submit
-            </button>
+                { !loading ?  
+                    "Confirm Code" 
+                    : 
+                     <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        >
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                }
+            </Button>
         </form>
     )
 }

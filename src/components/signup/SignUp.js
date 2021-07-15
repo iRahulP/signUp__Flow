@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import './SignUp.css';
+import { Button,Spinner } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import PasswordStrength from './validation/PasswordStrength';
 import PasswordMatch from './validation/PasswordMatch';
 
@@ -9,6 +11,7 @@ function SignUp(props) {
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
 
+    const [loading, setLoading] = useState(false);
     // const [ userInput, setUserInput ] = useState({
     //     email: '',
     //     passwordOne: '',
@@ -18,18 +21,22 @@ function SignUp(props) {
     const continueToNext = (e) => {
         e.preventDefault();
         
-        if (passwordTwo !== '' && passwordOne === passwordTwo ){
-            props.nextStep();
-        }
-        else{
-            setEmail('');
-            setPasswordOne('');
-            setPasswordTwo('');
-        }
+        setLoading(true)
+        setTimeout(() => {
+            if (passwordTwo !== '' && passwordOne === passwordTwo ){
+                props.nextStep();
+            }
+            else{
+                setEmail('');
+                setPasswordOne('');
+                setPasswordTwo('');
+            }
+            setLoading(false)
+        }, 1000)
     }
 
     return (
-        <form className="signup-form" onSubmit={continueToNext}>
+            <form className="signup-form" onSubmit={continueToNext}>
             <h3>Sign Up ~ Flow</h3>
 
             <div>
@@ -42,7 +49,7 @@ function SignUp(props) {
                     value={email}
                     onChange={(e) => {
                         setEmail(e.target.value)
-                        // setUserInput({...userInput, email: e.target.value})
+                          // setUserInput({...userInput, email: e.target.value})
                         // setUserInput((prevState) => {
                         //  return { ...prevState, email : e.target.value }
                         // })
@@ -93,13 +100,27 @@ function SignUp(props) {
                 {PasswordMatch(passwordOne,passwordTwo)}
             </span>
 
-            <button 
+            <Button 
+                variant="primary"
+                className="button"
                 data-testid="submit-btn"
                 disabled={ !email || !passwordOne || !passwordTwo }
                 type="submit"
             >
-                Sign Up
-            </button>
+                { !loading ?  
+                    "Sign Up" 
+                    : 
+                     <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        >
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                } 
+                </Button>
         </form>
     )
 }

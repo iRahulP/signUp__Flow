@@ -10,12 +10,13 @@
 
 .signup-form h3 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 .signup-form input[type=email],
 .signup-form input[type=password] {
     /* Size and position */
-    width: 90%;
+    width: 100%;
     padding: 8px 8px 8px 8px;
     margin-bottom: 15px;
 
