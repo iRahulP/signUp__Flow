@@ -10,11 +10,12 @@
 
 .signup-form h3 {
     text-align: center;
+    margin-bottom: 60px;
 }
 
 .signup-form input[type=text] {
     /* Size and position */
-    width: 95%;
+    width: 100%;
     padding: 8px 8px 8px 8px;
     margin-bottom: 15px;
 

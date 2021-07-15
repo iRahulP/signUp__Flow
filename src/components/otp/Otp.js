@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './Otp.css';
 import mockOtp from './mock/otp.json';
+import { Button,Spinner } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Otp = (props) => {
     const [ one, setOne ]= useState('');
@@ -8,20 +10,26 @@ const Otp = (props) => {
     const [ three, setThree ]= useState('');
     const [ four, setFour ]= useState('');
     const [ five, setFive ]= useState('');
+    const [loading, setLoading] = useState(false);
 
     const continueToNext = (e) => {
         e.preventDefault();
-        if(one.concat(two,three,four,five) === mockOtp.otp){
-            props.nextStep();   
-        }
-        else{
-            setOne('');
-            setTwo('');
-            setThree('');
-            setFour('');
-            setFive('');
-            document.querySelector("span").innerText = 'Invalid OTP';
-        }
+        
+        setLoading(true)
+        setTimeout(() => {
+            if(one.concat(two,three,four,five) === mockOtp.otp){
+                props.nextStep();   
+            }
+            else{
+                setOne('');
+                setTwo('');
+                setThree('');
+                setFour('');
+                setFive('');
+                document.querySelector("span").innerText = 'Invalid OTP';
+            }
+            setLoading(false)
+        }, 1000)
     }
 
     return (
@@ -37,10 +45,13 @@ const Otp = (props) => {
                 name="digit-1"
                 data-testid="digit-1" 
                 data-next="digit-2"
-                type='text' 
+                type='text'
+                inputmode="numeric"
+                autocomplete="one-time-code" 
                 maxLength='1'
                 value={one}
-                onChange={e => setOne(e.target.value)}                     
+                onChange={e => setOne(e.target.value)}
+                required                     
             />
             <input 
                 id="digit-2" 
@@ -49,9 +60,12 @@ const Otp = (props) => {
                 data-next="digit-3"
                 data-previous="digit-1"
                 type='text' 
+                inputmode="numeric"
+                autocomplete="one-time-code" 
                 maxLength='1'
                 value={two}
                 onChange={e => setTwo(e.target.value)} 
+                required
             />
             <input 
                 id="digit-3" 
@@ -60,9 +74,12 @@ const Otp = (props) => {
                 data-next="digit-4"
                 data-previous="digit-2"
                 type='text' 
+                inputmode="numeric"
+                autocomplete="one-time-code" 
                 maxLength='1' 
                 value={three}
                 onChange={e => setThree(e.target.value)}
+                required
             />
             <input 
                 id="digit-4" 
@@ -71,9 +88,12 @@ const Otp = (props) => {
                 data-next="digit-5"
                 data-previous="digit-3"
                 type='text' 
+                inputmode="numeric"
+                autocomplete="one-time-code" 
                 maxLength='1' 
                 value={four}
                 onChange={e => setFour(e.target.value)}
+                required
             />
             <input 
                 id="digit-5" 
@@ -82,9 +102,12 @@ const Otp = (props) => {
                 data-next="digit-6"
                 data-previous="digit-4"
                 type='text' 
+                inputmode="numeric"
+                autocomplete="one-time-code" 
                 maxLength='1' 
                 value={five}
                 onChange={e => setFive(e.target.value)}
+                required
             /> 
         </form>
 
@@ -94,15 +117,28 @@ const Otp = (props) => {
             >
             </span>
 
-            <button
+            <Button
+                variant="primary"
                 disabled={!one || !two || !three || !four || !five }
                 type="submit"
                 data-testid="submit-btn"
                 onClick={continueToNext}
                 className="btn"
             >
-                Confirm OTP
-            </button>
+                { !loading ?  
+                    "Confirm OTP" 
+                    : 
+                     <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        >
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                } 
+            </Button>
 
         </div>
     )
