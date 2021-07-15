@@ -9,9 +9,23 @@ function SignUp(props) {
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
 
+    // const [ userInput, setUserInput ] = useState({
+    //     email: '',
+    //     passwordOne: '',
+    //     passwordTwo: ''
+    // });
+
     const continueToNext = (e) => {
         e.preventDefault();
-        props.nextStep();
+        
+        if (passwordTwo !== '' && passwordOne === passwordTwo ){
+            props.nextStep();
+        }
+        else{
+            setEmail('');
+            setPasswordOne('');
+            setPasswordTwo('');
+        }
     }
 
     return (
@@ -26,7 +40,13 @@ function SignUp(props) {
                     data-testid="email"
                     placeholder="Enter email" 
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                        // setUserInput({...userInput, email: e.target.value})
+                        // setUserInput((prevState) => {
+                        //  return { ...prevState, email : e.target.value }
+                        // })
+                    }}
                     required 
                 />
             </div>
@@ -75,7 +95,7 @@ function SignUp(props) {
 
             <button 
                 data-testid="submit-btn"
-                disabled={!email || !passwordOne || !passwordTwo}
+                disabled={ !email || !passwordOne || !passwordTwo }
                 type="submit"
             >
                 Sign Up
