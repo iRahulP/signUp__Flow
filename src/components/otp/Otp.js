@@ -10,7 +10,8 @@ const Otp = (props) => {
     const [ three, setThree ]= useState('');
     const [ four, setFour ]= useState('');
     const [ five, setFive ]= useState('');
-    const [loading, setLoading] = useState(false);
+    const [ loading, setLoading ] = useState(false);
+    const [ otpValid, setOtpValid ] = useState(true);
 
     const continueToNext = (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const Otp = (props) => {
                 props.nextStep();   
             }
             else{
+                setOtpValid(false);
                 setOne('');
                 setTwo('');
                 setThree('');
@@ -50,7 +52,13 @@ const Otp = (props) => {
                 autoComplete="one-time-code" 
                 maxLength='1'
                 value={one}
-                onChange={e => setOne(e.target.value)}
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setOtpValid(true);
+                    }
+                    setOne(e.target.value)
+                }}
+                style={{ borderColor: !otpValid ? 'red' : '#ccc' }}
                 required                     
             />
             <input 
@@ -64,7 +72,13 @@ const Otp = (props) => {
                 autoComplete="one-time-code" 
                 maxLength='1'
                 value={two}
-                onChange={e => setTwo(e.target.value)} 
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setOtpValid(true);
+                    }
+                    setTwo(e.target.value)
+                }} 
+                style={{ borderColor: !otpValid ? 'red' : '#ccc' }}
                 required
             />
             <input 
@@ -78,7 +92,13 @@ const Otp = (props) => {
                 autoComplete="one-time-code" 
                 maxLength='1' 
                 value={three}
-                onChange={e => setThree(e.target.value)}
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setOtpValid(true);
+                    }
+                    setThree(e.target.value)
+                }}
+                style={{ borderColor: !otpValid ? 'red' : '#ccc' }}
                 required
             />
             <input 
@@ -92,7 +112,13 @@ const Otp = (props) => {
                 autoComplete="one-time-code" 
                 maxLength='1' 
                 value={four}
-                onChange={e => setFour(e.target.value)}
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setOtpValid(true);
+                    }
+                    setFour(e.target.value)
+                }}
+                style={{ borderColor: !otpValid ? 'red' : '#ccc' }}
                 required
             />
             <input 
@@ -106,7 +132,13 @@ const Otp = (props) => {
                 autoComplete="one-time-code" 
                 maxLength='1' 
                 value={five}
-                onChange={e => setFive(e.target.value)}
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setOtpValid(true);
+                    }
+                    setFive(e.target.value)
+                }}
+                style={{ borderColor: !otpValid ? 'red' : '#ccc' }}
                 required
             /> 
         </form>

@@ -9,6 +9,7 @@ const Referral = (props) => {
     const [ referral, setReferral ] = useState('');
     const [ isChecked, setIsChecked ] = useState(false);
     const [ loading, setLoading ] = useState(false);
+    const [ refValid, setRefValid ] = useState(true);
 
     const handleInputChange = (e) => {
         console.log(isChecked);
@@ -24,12 +25,13 @@ const Referral = (props) => {
                 props.nextStep();
             }
             else if(referral !== refCheck.refBy && isChecked === false) {
+                setRefValid(false);
                 setReferral('');
                 document.querySelector("span").innerText = 'Invalid referral code, Try again!';
             }
             else {
                 props.nextStep();    
-            }    
+            }
             setLoading(false)
         }, 1000)
         
@@ -48,7 +50,13 @@ const Referral = (props) => {
                 data-testid="referral"
                 type='text' 
                 value={referral}
-                onChange={e => setReferral(e.target.value)}
+                onChange={e => {
+                    if(e.target.value.trim().length > 0 ){
+                        setRefValid(true);
+                    }
+                    setReferral(e.target.value)
+                }}
+                style={{ borderColor: !refValid ? 'red' : '#ccc' }}
             />
 
             <span
