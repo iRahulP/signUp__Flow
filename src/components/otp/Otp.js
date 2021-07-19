@@ -46,8 +46,8 @@ const Otp = (props) => {
                 data-testid="digit-1" 
                 data-next="digit-2"
                 type='text'
-                inputmode="numeric"
-                autocomplete="one-time-code" 
+                inputMode="numeric"
+                autoComplete="one-time-code" 
                 maxLength='1'
                 value={one}
                 onChange={e => setOne(e.target.value)}
@@ -60,8 +60,8 @@ const Otp = (props) => {
                 data-next="digit-3"
                 data-previous="digit-1"
                 type='text' 
-                inputmode="numeric"
-                autocomplete="one-time-code" 
+                inputMode="numeric"
+                autoComplete="one-time-code" 
                 maxLength='1'
                 value={two}
                 onChange={e => setTwo(e.target.value)} 
@@ -74,8 +74,8 @@ const Otp = (props) => {
                 data-next="digit-4"
                 data-previous="digit-2"
                 type='text' 
-                inputmode="numeric"
-                autocomplete="one-time-code" 
+                inputMode="numeric"
+                autoComplete="one-time-code" 
                 maxLength='1' 
                 value={three}
                 onChange={e => setThree(e.target.value)}
@@ -88,8 +88,8 @@ const Otp = (props) => {
                 data-next="digit-5"
                 data-previous="digit-3"
                 type='text' 
-                inputmode="numeric"
-                autocomplete="one-time-code" 
+                inputMode="numeric"
+                autoComplete="one-time-code" 
                 maxLength='1' 
                 value={four}
                 onChange={e => setFour(e.target.value)}
@@ -102,8 +102,8 @@ const Otp = (props) => {
                 data-next="digit-6"
                 data-previous="digit-4"
                 type='text' 
-                inputmode="numeric"
-                autocomplete="one-time-code" 
+                inputMode="numeric"
+                autoComplete="one-time-code" 
                 maxLength='1' 
                 value={five}
                 onChange={e => setFive(e.target.value)}
