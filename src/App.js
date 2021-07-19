@@ -9,6 +9,13 @@ function App() {
 
   const [ step, setStep ] = useState(1);
   const [ refUser, setRefUser ] = useState('');
+  // const [ data, setData ] = useState({
+  //   email: '',
+  //   password: '',
+  //   otp: '',
+  //   referralCode: '',
+  //   referredBy: ''
+  // });
 
   const nextStep = () => {
     setStep(step + 1);

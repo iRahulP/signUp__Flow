@@ -4,6 +4,8 @@ import { Button,Spinner } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PasswordStrength from './validation/PasswordStrength';
 import PasswordMatch from './validation/PasswordMatch';
+import EmailValidation from './validation/EmailValidation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SignUp(props) {
 
@@ -22,15 +24,15 @@ function SignUp(props) {
         e.preventDefault();
         
         setLoading(true)
-        setTimeout(() => {
-            if (passwordTwo !== '' && passwordOne === passwordTwo ){
+        setTimeout(() => { 
+            if (EmailValidation(email) && passwordTwo !== '' && passwordOne === passwordTwo ){
                 props.nextStep();
             }
             else{
                 setEmail('');
                 setPasswordOne('');
                 setPasswordTwo('');
-            }
+            }    
             setLoading(false)
         }, 1000)
     }
@@ -69,6 +71,8 @@ function SignUp(props) {
                     onChange={e => setPasswordOne(e.target.value)}
                     required 
                 />
+            <FontAwesomeIcon icon="fa-solid fa-eye" />
+            <FontAwesomeIcon icon="fa-solid fa-eye-slash" />
             </div>
 
             <span
@@ -90,6 +94,9 @@ function SignUp(props) {
                     onChange={e => setPasswordTwo(e.target.value)}
                     required 
                 />
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
+                <FontAwesomeIcon icon="fa-solid fa-eye" />
+                <FontAwesomeIcon icon="fa-solid fa-eye-slash" />
             </div>
             
             <span
