@@ -5,15 +5,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import PasswordStrength from './validation/PasswordStrength';
 import PasswordMatch from './validation/PasswordMatch';
 import EmailValidation from './validation/EmailValidation';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function SignUp(props) {
 
     const [ email, setEmail ]= useState('');
     const [ passwordOne, setPasswordOne ] = useState('');
     const [ passwordTwo, setPasswordTwo ] = useState('');
-
+    const [ emailValid, setEmailValid ] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [passwordsValid, setPasswordsValid ] = useState(true);
+
     // const [ userInput, setUserInput ] = useState({
     //     email: '',
     //     passwordOne: '',
@@ -25,10 +26,17 @@ function SignUp(props) {
         
         setLoading(true)
         setTimeout(() => { 
-            if (EmailValidation(email) && passwordTwo !== '' && passwordOne === passwordTwo ){
+            const checkBlanks = email.trim().length !== 0 && passwordOne.trim().length !== 0 && passwordTwo.trim().length !== 0; 
+            console.log(checkBlanks);
+            console.log(email);
+            const check = EmailValidation(email) && checkBlanks && passwordTwo !== '' && PasswordMatch(passwordOne,passwordTwo);
+            console.log(check);
+            if (check){
                 props.nextStep();
             }
             else{
+                setEmailValid(false);
+                setPasswordsValid(false);
                 setEmail('');
                 setPasswordOne('');
                 setPasswordTwo('');
@@ -45,17 +53,21 @@ function SignUp(props) {
                 <label htmlFor="email">Email</label>
                 <input 
                     id="email"
-                    type="email"
+                    type="text"
                     data-testid="email"
                     placeholder="Enter email" 
                     value={email}
                     onChange={(e) => {
+                        if(e.target.value.trim().length > 0 ){
+                            setEmailValid(true);
+                        }
                         setEmail(e.target.value)
-                          // setUserInput({...userInput, email: e.target.value})
+                        // setUserInput({...userInput, email: e.target.value})
                         // setUserInput((prevState) => {
                         //  return { ...prevState, email : e.target.value }
                         // })
                     }}
+                    style={{ borderColor: !emailValid ? 'red' : '#ccc' }}
                     required 
                 />
             </div>
@@ -68,11 +80,15 @@ function SignUp(props) {
                     data-testid='pass1'
                     placeholder="Enter password" 
                     value={passwordOne}
-                    onChange={e => setPasswordOne(e.target.value)}
+                    onChange={e => {
+                        if(e.target.value.trim().length > 0 ){
+                            setPasswordsValid(true);
+                        }
+                        setPasswordOne(e.target.value)
+                    }}
+                    style={{ borderColor: !passwordsValid ? 'red' : '#ccc' }}
                     required 
                 />
-            <FontAwesomeIcon icon="fa-solid fa-eye" />
-            <FontAwesomeIcon icon="fa-solid fa-eye-slash" />
             </div>
 
             <span
@@ -91,12 +107,15 @@ function SignUp(props) {
                     data-testid="pass2"
                     placeholder="Enter password again" 
                     value={passwordTwo}
-                    onChange={e => setPasswordTwo(e.target.value)}
-                    required 
+                    onChange={e => {
+                        if(e.target.value.trim().length > 0 ){
+                            setPasswordsValid(true);
+                        }
+                        setPasswordTwo(e.target.value)
+                    }}
+                    style={{ borderColor: !passwordsValid ? 'red' : '#ccc' }}
+                    required
                 />
-                <i class="bi bi-eye-slash" id="togglePassword"></i>
-                <FontAwesomeIcon icon="fa-solid fa-eye" />
-                <FontAwesomeIcon icon="fa-solid fa-eye-slash" />
             </div>
             
             <span
