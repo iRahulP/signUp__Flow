@@ -27,9 +27,7 @@ function SignUp(props) {
         setLoading(true)
         setTimeout(() => { 
             const checkBlanks = email.trim().length !== 0 && passwordOne.trim().length !== 0 && passwordTwo.trim().length !== 0; 
-            console.log(checkBlanks);
-            console.log(email);
-            const check = EmailValidation(email) && checkBlanks && passwordTwo !== '' && PasswordMatch(passwordOne,passwordTwo);
+            const check = EmailValidation(email) && checkBlanks && passwordTwo !== '' && (passwordOne === passwordTwo);
             console.log(check);
             if (check){
                 props.nextStep();
